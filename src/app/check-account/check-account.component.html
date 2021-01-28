@@ -1,0 +1,59 @@
+<div class="account-container">
+    <button mat-raised-button color="warn" (click)="CreateAccountOnClick()">
+        <mat-icon>add</mat-icon>
+        Yeni Cari Hesap
+    </button>
+    <div>
+        <table mat-table matSort [dataSource]="dataSource">
+            <ng-container matColumnDef="firmaAdi">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Firma Adı</th>
+                <td mat-cell *matCellDef="let row">{{row.firmaAdi}}</td>
+            </ng-container>
+            <ng-container matColumnDef="firmaTipi">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Firma Tipi</th>
+                <td mat-cell *matCellDef="let row">{{row.firmaTipi}}</td>
+            </ng-container>
+            <ng-container matColumnDef="kimlikNo">
+                <th mat-header-cell *matHeaderCellDef>Vergi/Kimlik No.</th>
+                <td mat-cell *matCellDef="let row">{{row.kimlikNo}}</td>
+            </ng-container>
+            <ng-container matColumnDef="sektor">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Sektör</th>
+                <td mat-cell *matCellDef="let row">{{row.sektor}}</td>
+            </ng-container>
+            <ng-container matColumnDef="sehir">
+                <th mat-header-cell *matHeaderCellDef>İl/İlçe</th>
+                <td mat-cell *matCellDef="let row">{{row.sehir}}/{{row.ilce}}</td>
+            </ng-container>
+            <ng-container matColumnDef="telno">
+                <th mat-header-cell *matHeaderCellDef>Telefon</th>
+                <td mat-cell *matCellDef="let row">{{row.telno}}</td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>E-Mail</th>
+                <td mat-cell *matCellDef="let row">{{row.email_addr}}</td>
+            </ng-container>
+            <ng-container matColumnDef="actions" stickyEnd>
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-icon (click)="RowDeleteOnClick(row)" title="Sil">delete</mat-icon>
+                  <mat-icon (click)="RowEditOnClick(row)" title="Detay">create</mat-icon>
+                </td>
+              </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="columns"></tr>
+            <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+            
+        </table>
+
+        <div *ngIf="isBusy" class="busy-indicator">
+            <mat-progress-spinner 
+              color="warn" 
+              mode="indeterminate">
+            </mat-progress-spinner>
+            <div class="busy-text">Yükleniyor...</div>
+        </div>
+    
+        <mat-paginator [hidePageSize]="true" [pageSize]="10" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="risk-analysis-container">
+    <mat-card class="risk-analysis-warn-card">
+        <mat-icon style="margin-right:2%;">error_outline</mat-icon>
+        <span>Yükleyeceğiniz verinin Excel formatında ve sütunlarının <a href="/assets/KILAVUZ.md" target="_blank">kılavuzda</a> yazıldığı gibi olduklarından emin olunuz.</span>       
+    </mat-card>
+    <mat-card class="risk-analysis-file-card">
+        <mat-card-content>
+            <mat-form-field appearance="standard">
+                <mat-label>Risk Analiz verilerini yükleyiniz.</mat-label>
+                <input matInput [formControl]="filePath" spellcheck="false" autocomplete="off" (click)="FileInputOnClick()"/>
+                <mat-icon matPrefix>attach_file</mat-icon>
+                <mat-hint align="start">Excel verinizi yüklerken sütunların doğru olduğuna emin olunuz.</mat-hint>
+                <input #fileDialog style="display:none;" type="file" (change)="FileDialogOnChange($event)">
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="warn" [disabled]="filePath.value == ''">Gönder</button>
+            <button mat-raised-button color="warn" [disabled]="filePath.value == ''">Temizle</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
