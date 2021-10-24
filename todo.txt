@@ -1,0 +1,20 @@
+X - cari hesap prop’ları değişti
+- yeni cari hesap esnasında dosya yüklenecek (pdf), bi şekilde arka tarafa gönderilecek, view yapılmayacak
+X - il ilçe servisten getirilecek
+X - login request atılacak
+X - risk analiz excel dosyası post işlemi (devamında işlenen verilere get isteği)
+- dashboard’a tıklandığında popup açılıp uyarı gösterilecek, bir kereye mahsus
+X - ana sayfa route’u iptal, login’i geçince cari hesap ekranı gelmeli
+X - login’den sonra ekranda user ikonuyla birlikte bilgiler yer almalı
+- hatalı username ya da password için back-end’den jenerik dönüş var, kullanıcı adı ya da parola hatalıdır mesajı verilebilir
+X - Normal şartlar altında risk excel’ini gönderince veritabanına kayıt atılacak mı, şu an carihesap tablosunda kayıt olmadığı için mi veritabanına kayıt atılmıyor?  (atılacak)
+X - yeni cari hesap penceresinde; firma tipinin tüzel veya şahıs olmasına göre zorunlu alanlar değişecek mi, alakasız alanlar gizlenecek mi?
+- JWT payload üzerinden expiresAt  değeri unix epoch olarak geliyor ve yaklaşık 2 saat süreli, çok uzun değil mi?
+- cari hesap açılışında field label’larının türkçe’sinin kontrol edilmesi lazım, örneğin firm_key_contact_personnel
+- cari hesap sector listesi servisten mi gelecek yoksa free-text mi, şu an için free-text yapıldı
+- cari hesap birthplace alanı il listesinden seçmeli olacak şekilde yapıldı, doğru mudur?
+- cari hesap formunun field sıralaması uygun mudur?
+- risk analiz ekranında excel yükledikten sonra getirilen risk analiz verileri;  yalnızca az önce yüklenen excel’deki veriler mi olacak yoksa kayıtlı bütün veriler mi?
+- cari hesap dosyalarının pdf yazmayanlarının formatı ne olacak?
+- cari hesap dosyalarının çevirileri doğru mu?
+- cari hesap dosyalarının herhangi bir tanesinde birden fazla dosya yüklemeye ihtiyaç olacak mı?
