@@ -1,26 +1,136 @@
 <div mat-dialog-content *ngIf="data.type == AccountDialogType.Create || data.type == AccountDialogType.Edit" style="display:flex; flex-direction:column;">
     <h2>{{data.text}}</h2>
     <mat-form-field appearance="standard">
-        <mat-label>Firma Adı</mat-label>
-        <input matInput [formControl]="firmaAdi" [value]="firmaAdi.value" spellcheck="false"/>
-        <mat-error *ngIf="firmaAdi.invalid">Firma adı giriniz.</mat-error>
+        <mat-label>Firma Adı*</mat-label>
+        <input matInput [formControl]="firm_full_name" [value]="firm_full_name.value" spellcheck="false"/>
+        <mat-error *ngIf="firm_full_name.invalid">Firma adı giriniz.</mat-error>
     </mat-form-field>
     <mat-form-field appearance="standard">
         <mat-label>Firma Tipi</mat-label>
-        <mat-select required [value]="firmaTipi.value">
-            <mat-option value="Tüzel">Tüzel</mat-option>
-            <mat-option value="Şahıs">Şahıs</mat-option>
+        <mat-select required [value]="firm_type.value">
+            <mat-option value="Tüzel Kişilik">Tüzel Kişilik</mat-option>
+            <mat-option value="Şahıs İşletmesi">Şahıs İşletmesi</mat-option>
         </mat-select>
     </mat-form-field>
-    <mat-form-field appearance="standard">
-        <mat-label>Kimlik/Vergi No.</mat-label>
-        <input matInput [formControl]="kimlikNo" [value]="kimlikNo.value" type="number"/>
-        <mat-error *ngIf="kimlikNo.invalid">Kimlik/Vergi No. giriniz.</mat-error>
+    <mat-form-field *ngIf="firm_type.value == 'Şahıs İşletmesi'" appearance="standard">
+        <mat-label>TC Kimlik No.*</mat-label>
+        <input matInput [formControl]="taxpayer_number" [value]="taxpayer_number.value" type="number"/>
+        <mat-error *ngIf="taxpayer_number.invalid">TC Kimlik No. giriniz.</mat-error>
+    </mat-form-field>
+    <mat-form-field *ngIf="firm_type.value == 'Tüzel Kişilik'" appearance="standard">
+        <mat-label>Vergi Kimlik No.*</mat-label>
+        <input matInput [formControl]="taxpayer_number1" [value]="taxpayer_number1.value" type="number"/>
+        <mat-error *ngIf="kimlikNo.invalid">Vergi Kimlik No. giriniz.</mat-error>
     </mat-form-field>
     <mat-form-field appearance="standard">
+        <mat-label>Firma Adresi*</mat-label>
+        <input matInput [formControl]="firm_address" [value]="firm_address.value" spellcheck="false"/>
+        <mat-error *ngIf="firm_address.invalid">Firma adresi giriniz.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+        <mat-label>İletişime Geçilecek Kişi*</mat-label>
+        <input matInput [formControl]="firm_key_contact_personnel" [value]="firm_key_contact_personnel.value" spellcheck="false"/>
+        <mat-error *ngIf="firm_key_contact_personnel.invalid">Kişinin adını ve soyadını giriniz.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+        <mat-label>Vergi Departmanı*</mat-label>
+        <input matInput [formControl]="tax_department" [value]="tax_department.value" spellcheck="false"/>
+        <mat-error *ngIf="tax_department.invalid">Vergi Departmanı giriniz.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+        <mat-label>Sektör*</mat-label>
+        <input matInput [formControl]="sector" [value]="sector.value" spellcheck="false"/>
+        <mat-error *ngIf="sector.invalid">Sektör giriniz.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+        <mat-label>İl*</mat-label>
+        <mat-select [formControl]="city" [(value)]="city.value" (selectionChange)="cityOnSelectionChange($event)">
+            <mat-option *ngFor="let city_ of AppState.cities" [value]="city_">{{city_}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="city.invalid">İl seçiniz.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+        <mat-label>İlçe*</mat-label>
+        <mat-select [formControl]="district" [(value)]="district.value">
+            <mat-option *ngFor="let district_ of districts" [value]="district_">{{district_}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="city.invalid">İlçe seçiniz.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+        <mat-label>Telefon Numarası*</mat-label>
+        <input matInput [formControl]="phone_number" [value]="phone_number.value" spellcheck="false"/>
+        <mat-error *ngIf="phone_number.invalid">Telefon numarası giriniz.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+        <mat-label>Fax Numarası</mat-label>
+        <input matInput [formControl]="fax" [value]="fax.value" spellcheck="false"/>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+        <mat-label>E-mail Adresi*</mat-label>
+        <input matInput [formControl]="email_addr" [value]="email_addr.value" spellcheck="false"/>
+        <mat-error *ngIf="email_addr.invalid">E-mail adresi giriniz.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+        <mat-label>Web Adresi*</mat-label>
+        <input matInput [formControl]="web_url" [value]="web_url.value" spellcheck="false"/>
+        <mat-error *ngIf="web_url.invalid">Web adresi giriniz.</mat-error>
+    </mat-form-field>
+    <mat-form-field *ngIf="firm_type.value == 'Şahıs İşletmesi'" appearance="standard">
         <mat-label>Doğum Yeri</mat-label>
-        <input matInput [formControl]="dyeri" [value]="dyeri.value"/>
+        <mat-select [formControl]="birthplace" [(value)]="birthplace.value">
+            <mat-option *ngFor="let city_ of AppState.cities" [value]="city_">{{city_}}</mat-option>
+        </mat-select>
     </mat-form-field>
+    <mat-form-field *ngIf="firm_type.value == 'Tüzel Kişilik'" appearance="standard">
+        <mat-label>Yönetim Kurulu Yapısı</mat-label>
+        <input matInput [formControl]="board_management" spellcheck="false" (click)="File1InputOnClick()"/>
+        <mat-icon matPrefix>attach_file</mat-icon>
+        <mat-error *ngIf="board_management.invalid">{{ getErrorMessage(board_management) }}</mat-error>
+        <mat-hint align="start">PDF formatında dosya yükleyiniz.</mat-hint>
+        <input #file1Dialog style="display:none;" type="file" (change)="File1DialogOnChange($event)">
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+        <mat-label>Faaliyet Belgesi</mat-label>
+        <input matInput [formControl]="activity_certificate_pdf" spellcheck="false" (click)="File2InputOnClick()"/>
+        <mat-icon matPrefix>attach_file</mat-icon>
+        <mat-error *ngIf="activity_certificate_pdf.invalid">{{ getErrorMessage(activity_certificate_pdf) }}</mat-error>
+        <mat-hint align="start">PDF formatında dosya yükleyiniz.</mat-hint>
+        <input #file2Dialog style="display:none;" type="file" (change)="File2DialogOnChange($event)">
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+        <mat-label>İmza Sirküleri</mat-label>
+        <input matInput [formControl]="authorized_signatures_list_pdf" spellcheck="false" (click)="File3InputOnClick()"/>
+        <mat-icon matPrefix>attach_file</mat-icon>
+        <mat-error *ngIf="authorized_signatures_list_pdf.invalid">{{ getErrorMessage(authorized_signatures_list_pdf) }}</mat-error>
+        <mat-hint align="start">PDF formatında dosya yükleyiniz.</mat-hint>
+        <input #file3Dialog style="display:none;" type="file" (change)="File3DialogOnChange($event)">
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+        <mat-label>Vergi İadesi</mat-label>
+        <input matInput [formControl]="tax_return_pdf" spellcheck="false" (click)="File4InputOnClick()"/>
+        <mat-icon matPrefix>attach_file</mat-icon>
+        <mat-error *ngIf="tax_return_pdf.invalid">{{ getErrorMessage(tax_return_pdf) }}</mat-error>
+        <mat-hint align="start">PDF formatında dosya yükleyiniz.</mat-hint>
+        <input #file4Dialog style="display:none;" type="file" (change)="File4DialogOnChange($event)">
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+        <mat-label>Nüfus Kayıt Örneği</mat-label>
+        <input matInput [formControl]="identity_copies" spellcheck="false" (click)="File5InputOnClick()"/>
+        <mat-icon matPrefix>attach_file</mat-icon>
+        <mat-error *ngIf="identity_copies.invalid">{{ getErrorMessage(identity_copies) }}</mat-error>
+        <mat-hint align="start">*****</mat-hint>
+        <input #file5Dialog style="display:none;" type="file" (change)="File5DialogOnChange($event)">
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+        <mat-label>Ortaklık Yapısı Nüfus Kayıt Örneği</mat-label>
+        <input matInput [formControl]="partnership_structure_identity_copies" spellcheck="false" (click)="File6InputOnClick()"/>
+        <mat-icon matPrefix>attach_file</mat-icon>
+        <mat-error *ngIf="partnership_structure_identity_copies.invalid">{{ getErrorMessage(partnership_structure_identity_copies) }}</mat-error>
+        <mat-hint align="start">*****</mat-hint>
+        <input #file6Dialog style="display:none;" type="file" (change)="File6DialogOnChange($event)">
+    </mat-form-field>
+
+
 </div>
 <div mat-dialog-actions align="end" *ngIf="data.type == AccountDialogType.Create || data.type == AccountDialogType.Edit">
     <button mat-raised-button color="primary">{{data.type == AccountDialogType.Create ? 'Aç' : 'Düzenle'}}</button>

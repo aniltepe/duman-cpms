@@ -7,4 +7,6 @@ export class AppState {
     static accountsOnLoad: EventEmitter<Account[]> = new EventEmitter<Account[]>();
 
     static username: string;
+
+    static cities: string[];
 }

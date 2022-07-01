@@ -21,6 +21,32 @@ export class RiskAnalysisComponent {
 
   FileDialogOnChange = (ev: Event) => {
     let fullPath = (ev.target as HTMLInputElement).value;
-    this.filePath.setValue(fullPath.split('\\')[fullPath.split('\\').length - 1]);
+    let filename = fullPath.split('\\')[fullPath.split('\\').length - 1]
+    if (filename.split('.')[1] == 'xls' || filename.split('.')[1] == 'xlsx') {
+      this.filePath.setValue(filename);
+      this.filePath.setErrors({'format': false});
+    }
+    else {
+      this.filePath.setErrors({'format': true});
+    }
+  }
+
+  getErrorMessage = () => {
+    if (this.filePath.hasError('required') || this.filePath.hasError('format'))
+      return 'Excel formatında dosya yükleyiniz.'
+  }
+
+  SubmitOnClick = () => {
+    let file = this.fileDialog.nativeElement.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    let fileBlob = new Blob([reader.result], {type: file.type});
+    this.appService.postRiskDataset(fileBlob).subscribe(res => {
+      console.log(res);
+    });
+  }
+
+  ResetOnClick = () => {
+    this.filePath.setValue('');
   }
 }

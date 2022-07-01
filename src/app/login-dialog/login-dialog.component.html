@@ -3,7 +3,7 @@
     <form (ngSubmit)="login()">
         <mat-form-field appearance="standard">
             <mat-label>Kullanıcı Adı</mat-label>
-            <input matInput [formControl]="username" spellcheck="false" (keyup)="UsernameOnKeyup($event)"/>
+            <input matInput [formControl]="username" autocomplete="no" spellcheck="false" (keyup)="UsernameOnKeyup($event)"/>
             <mat-error *ngIf="username.invalid">Kullanıcı adı giriniz.</mat-error>
         </mat-form-field>
         <mat-form-field appearance="standard">

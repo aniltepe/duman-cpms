@@ -19,7 +19,7 @@ export class CheckAccountComponent implements AfterViewInit {
   isBusy = true;
 
   dataSource: MatTableDataSource<Account>;
-  columns: string[] = ['firmaAdi', 'firmaTipi', 'kimlikNo', 'sektor', 'sehir', 'telno', 'email', 'actions'];
+  columns: string[] = ['firm_full_name', 'firm_type', 'taxpayer_number', 'sector', 'city', 'phone_number', 'email_addr', 'actions'];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;

@@ -20,6 +20,9 @@ export class LayoutComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.appService.getCities().subscribe(cities => {
+      AppState.cities = cities.map(c => c["name"]);
+    });
     this.appService.getAccounts().subscribe(accounts => {
       AppState.accounts = accounts;
       AppState.accountsOnLoad.emit(accounts);

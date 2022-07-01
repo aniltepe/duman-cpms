@@ -14,6 +14,7 @@ mat-card-header a {
     font-weight: 400;
     width: 80%;
     margin-left: 10%;
+    padding: 8px;
 }
 
 .risk-analysis-file-card {
@@ -23,6 +24,7 @@ mat-card-header a {
     margin-left: 4%;
     border: none;
     box-shadow: none;
+    padding-top: 0;
 }
 
 mat-form-field {
@@ -46,4 +48,8 @@ mat-label {
 
 button.mat-button-disabled {
     color: gray !important;
+}
+
+mat-card-content.mat-card-content {
+    margin-bottom: 0;
 }
